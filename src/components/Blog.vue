@@ -22,10 +22,8 @@
         <!-- 内容区域 -->
         <main>
             <section>
-
                     <!-- 左侧边栏 -->
                     <aside class="aside-left">
-
                         <!-- 个人简介 -->
                         <div class="me">
                             <header>
@@ -65,15 +63,11 @@
                                 </footer>
                             </footer>
                         </div>
-
                     </aside>
-
                     <!-- 博客文章 -->
                     <router-view ref="article"></router-view>
-
                     <!--右侧边栏 -->
                     <aside class="aside-right">
-                        
                          <!-- 分类区域 -->
                         <div class="sort">
                             <span><i class="el-icon-menu"></i>分类</span>
@@ -82,7 +76,6 @@
                                 <button v-for="item in sortList" :key="item.id" @click="click_sort(item.id)">{{item.sort_name}}</button>
                             </section>
                         </div>
-
                         <!-- 最近文章区域 -->
                         <article>
                             <span><i class="el-icon-document"></i>最近文章</span>
@@ -94,8 +87,7 @@
                                     </label>
                                 </li>
                             </nav>
-                        </article>
-                        
+                        </article>                      
                         <!-- 友情链接 -->
                         <div class="link">
                             <span><i class="el-icon-link"></i>友情链接</span>
@@ -106,7 +98,6 @@
                             </nav>
                         </div>
                     </aside>  
-
             </section>
         </main>
         
@@ -133,8 +124,8 @@ export default {
         }
     },
     created() {
-        this.getSTData()//调用获取分类与标签数据方法
-        this.getBlogAllData()//调用获取所有博客数据方法
+        this.getSTData()
+        this.getBlogAllData()
          //禁止鼠标右键点击
         document.oncontextmenu =  () => {
             event.returnValue = false

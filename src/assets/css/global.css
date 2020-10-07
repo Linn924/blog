@@ -12,7 +12,6 @@ a{
     text-decoration: none;
 }
 
-
 /* 浏览器滚动条样式 */
 html{overflow-x: hidden;}
 html::-webkit-scrollbar {width: 6px;}
