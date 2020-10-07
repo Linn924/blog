@@ -9,11 +9,11 @@
             <section>
                 <a href="javascript:void(0);">
                     <img src="https://s1.ax1x.com/2020/09/04/wkxl9K.jpg" alt="">
-                    <span>Smion</span>
+                    <span>Simon</span>
                 </a>
                 <nav>
                     <li><router-link to="/content" @click.native="reload"><i class="el-icon-s-home" ></i>主页</router-link></li>
-                    <li><a href="http://www.linncode.cn"><i class="el-icon-user"></i>个人</a></li>
+                    <li><router-link to="/me"><i class="el-icon-user-solid"></i>关于我</router-link></li>
                 </nav>
                 <el-input size="small" placeholder="搜索" suffix-icon="el-icon-search" v-model="value" @keyup.enter.native="enter" clearable></el-input>
             </section>
@@ -96,6 +96,15 @@
                             </nav>
                         </article>
                         
+                        <!-- 友情链接 -->
+                        <div class="link">
+                            <span><i class="el-icon-link"></i>友情链接</span>
+                            <div class="line"></div>
+                            <nav>
+                                <a href="http://www.linncode.cn" target="__blank">西蒙首页</a>
+                                <a href="http://www.linncode.cn:9547">简约导航</a>
+                            </nav>
+                        </div>
                     </aside>  
 
             </section>
@@ -126,10 +135,14 @@ export default {
     created() {
         this.getSTData()//调用获取分类与标签数据方法
         this.getBlogAllData()//调用获取所有博客数据方法
+         //禁止鼠标右键点击
+        document.oncontextmenu =  () => {
+            event.returnValue = false
+        }
     },
     watch: {
         $route(to,from){//监听路由变化
-            this.disableBtn(to.path)
+            this.disableBtn(to.path)   
         }
     },
     methods: {
@@ -156,7 +169,7 @@ export default {
         //监听要查看的博客地址
         changePath(item){
             this.$store.commit('setMdname',item.mdname)
-            this.$router.push({path:`/template?${item.mdname}`})
+            this.$router.push({path:`/article?${item.mdname}`})
         },
         //调用子组件中方法获取所有有关此分类的数据
         click_sort(id){
@@ -190,29 +203,31 @@ export default {
 #blog{
     width: 100vw;
     min-height: 100vh;
-    background: url(https://s1.ax1x.com/2020/10/03/03oAgK.jpg) no-repeat center;
-    background-attachment:fixed;
-    background-size: cover;
+    background-color: #F5F8F9;
+    position: relative;
     >header{
         min-height: 60px;
-        background-color: rgba(23,23,23, .6);
+        background-color: rgba(255, 255, 255, 0.4);
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.12);
     }
     >main{
-        padding: 2vh 0;
+        padding: 2vh 0 5vh 0;
         >section{
             width: 80vw;
             box-sizing: border-box;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 2fr 6fr 2fr;
-            grid-template-rows: auto auto auto;
+            grid-template-rows: auto auto;
             gap: 20px;
         }
     }
     >footer{
         box-sizing: border-box;
-        padding-top: 2vh;
-        background-color: rgba(23,23,23, .6);
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
     }
     .el-backtop{
         bottom: 20px!important;
@@ -228,39 +243,39 @@ export default {
         grid-template-columns:140px auto 180px;
         grid-template-rows: 1fr;
         margin: 0 auto;
-            >a{
-                display: flex;
-                align-items: center;
-                margin-right: 2vw;
-                &:hover span{color: #1E90FF;}
-                img{
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    margin-right: 20px;
-                }
-                span{
-                    color: white;
-                    font-size: 20px;
-                    transition: color .5s; 
-                }
+        >a{
+            display: flex;
+            align-items: center;
+            margin-right: 2vw;
+            &:hover span{color: #1E90FF;}
+            img{
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin-right: 20px;
             }
-            nav{
-                display: flex;
-                list-style: none;
-                line-height: 60px;
-                li{
-                    margin-right: 20px;
-                    a{
-                        color: #fff;
-                        transition: color .5s;
-                        &:hover{color: #1E90FF!important;}
-                        font-size: 15px;
-                        >i{margin-right: 2px;}
-                    }
-                    
-                }
+            span{
+                color: #000;
+                font-size: 20px;
+                transition: color .25s; 
             }
+        }
+        nav{
+            display: flex;
+            list-style: none;
+            line-height: 60px;
+            li{
+                margin-right: 20px;
+                a{
+                    color: #000;
+                    transition: color .5s;
+                    &:hover{color: #1E90FF!important;}
+                    font-size: 15px;
+                    >i{margin-right: 2px;}
+                }
+                
+            }
+        }
     }
 }
 #blog>header .el-input{
@@ -291,7 +306,7 @@ export default {
                         display: flex;
                         justify-content: center;
                         flex-direction: column;
-                        color: #fff;
+                        color: #000;
                         font-size: 14px;
                         span:nth-child(2){margin: 10px 0;}
                     }
@@ -376,17 +391,34 @@ export default {
                     font-size: 14px;
                     &:last-child{border: 0;}
                     label{
-                        transition: color .5s;
+                        transition: color .25s;
                         cursor: pointer;
-                        &:hover{color: #c23616;}
+                        &:hover{color: #1e90ff;}
+                    }
+                }
+            }
+            .link{
+                background-color: rgba(255, 255, 255, 0.5);
+                border-radius: 8px;
+                box-shadow: 0 2px 10px 0 rgba(0,0,0,0.12);
+                box-sizing: border-box;
+                padding: 10px 10px;
+                margin: 10px 0;
+                transition: all .25s;
+                span>i{margin-right: 5px;}
+                .line{border: 1px solid #70A1FF;margin: 10px 0;}
+                nav{
+                    a{
+                        color: #000;
+                        transition: all .25s;
+                        &:hover{color: #1e90ff;}
+                        &:last-child{margin: 0 0 0 10px;}
                     }
                 }
             }
         }  
 }
 #blog>footer{
-    display: flex;
-    justify-content: center;
     section{
         display: flex;
         flex-direction: column;
@@ -394,8 +426,7 @@ export default {
         align-items: center; 
         p{
             margin-bottom: 5px;
-            font-size: 14px;
-            color: white;
+            font-size: 12px;
         }  
     }
 }

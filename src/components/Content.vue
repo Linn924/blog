@@ -15,7 +15,7 @@
         <footer>
             <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
                 :current-page="queryList.pagenum" :page-sizes="[3, 5, 8]" :page-size="queryList.pagesize"
-                layout="sizes, prev, pager, next, jumper" :total="total" id="pageOne">
+                layout="sizes, prev, pager, next" :total="total">
             </el-pagination>
         </footer>
         
@@ -37,12 +37,6 @@ export default {
     },
     created() {
         this.getBlogData()//获取博客数据
-    },
-    filters:{
-        date: function (value) {
-            if (!value) return ''
-            return (new Date(value)).toLocaleString()
-        },
     },
     methods: {
         //获取博客数据
@@ -68,7 +62,7 @@ export default {
         //监听要查看的博客地址
         changePath(item){
             this.$store.commit('setMdname',item.mdname)
-            this.$router.push({path:`/template?${item.mdname}`})
+            this.$router.push({path:`/article?${item.mdname}`})
         },
         //根据点击的分类标签id获取所有有关此分类的数据
         async getAboutSortData(id){

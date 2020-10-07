@@ -1,8 +1,7 @@
-const Blog = () => import( /* webpackChunkName: "blog_content_template" */ '../components/Blog.vue')
-// import Content from '../components/Blog/Content.vue'
-const Content = () => import( /* webpackChunkName: "blog_content_template" */ '../components/Content.vue')
-// import Template from '../components/Blog/Template.vue'
-const Template = () => import( /* webpackChunkName: "blog_content_template" */ '../components/Template.vue')
+const Blog = () => import( /* webpackChunkName: "blog_content_Article_me" */ '../components/Blog.vue')
+const Content = () => import( /* webpackChunkName: "blog_content_Article_me" */ '../components/Content.vue')
+const Article = () => import( /* webpackChunkName: "blog_content_Article_me" */ '../components/Article.vue')
+const Me = () => import(/* webpackChunkName: "blog_content_Article_me" */ '../components/Me.vue')
 
 Vue.use(VueRouter)
 
@@ -17,7 +16,8 @@ const routes = [
     redirect: '/content',
     children: [
       { path: '/content', component: Content },
-      { path: '/template', component: Template }
+      { path: '/article', component: Article },
+      { path: '/me', component: Me },
     ]
   },
 ]

@@ -16,7 +16,6 @@ Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 
-
 //解决路由跳转报错（Avoided redundant navigation to current location ）
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {

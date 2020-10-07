@@ -1,10 +1,6 @@
 <template>
-    <div id="template">
-        <!-- 展示博客 -->
-        <article>
-            <div v-html="html" v-highlight class="markdown-body md"></div>
-        </article>
-
+    <div id="article">
+        <article v-html="html" v-highlight class="markdown-body md"></article>
     </div>
 </template>
 
@@ -39,8 +35,9 @@ export default {
 
 <style lang="less" scoped>
 @import "../assets/css/md.css";
-#template{
-    width: 100%;
+#article{
+    max-width: 100%;
+    min-width: 100%;
     article{
         background-color: rgba(255, 255, 255, 0.5);
         border-radius: 10px;
@@ -49,12 +46,6 @@ export default {
         padding: 20px 20px;
         box-sizing: border-box;
         color: #565A5F;
-    }
-}
-@media screen and (min-width: 951px) and (max-width: 1200px){
-    article{
-        max-width: 810px!important;
-        min-width: 430px!important;
     }
 }
 </style>
