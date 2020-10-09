@@ -66,7 +66,7 @@ export default {
         },
         //根据点击的分类标签id获取所有有关此分类的数据
         async getAboutSortData(id){
-            const {data:res} = await this.$http.post('/getAboutSortData',{id})
+            const {data:res} = await this.$http.get('/getAboutSortData',{params:{id}})
             if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1000})
             this.blogList = res.data
         }
