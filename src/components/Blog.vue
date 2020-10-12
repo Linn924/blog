@@ -8,7 +8,7 @@
         <header>
             <section>
                 <a href="javascript:void(0);">
-                    <img src="https://s1.ax1x.com/2020/09/04/wkxl9K.jpg" alt="">
+                    <img src="https://s1.ax1x.com/2020/10/12/0WPkND.jpg" alt="">
                     <span>Simon</span>
                 </a>
                 <nav>
@@ -27,7 +27,7 @@
                         <!-- 个人简介 -->
                         <div class="me">
                             <header>
-                                <img src="https://s1.ax1x.com/2020/09/04/wkxl9K.jpg" alt="">
+                                <img src="https://s1.ax1x.com/2020/10/12/0WPkND.jpg" alt="">
                                 <div>
                                     <span>爱开发</span>
                                     <span>爱学习</span>
@@ -93,8 +93,8 @@
                             <span><i class="el-icon-link"></i>友情链接</span>
                             <div class="line"></div>
                             <nav>
-                                <a href="http://www.linncode.cn" target="__blank">西蒙首页</a>
-                                <a href="http://www.linncode.cn:9547">简约导航</a>
+                                <a href="http://www.linncode.cn:9240" target="__blank">西蒙首页</a>
+                                <a href="http://www.linncode.cn:9549" target="__blank">西蒙导航</a>
                             </nav>
                         </div>
                     </aside>  
