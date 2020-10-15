@@ -38,6 +38,7 @@ export default {
 #article{
     max-width: 100%;
     min-width: 100%;
+    box-sizing: border-box;
     article{
         background-color: rgba(255, 255, 255, 0.5);
         border-radius: 10px;

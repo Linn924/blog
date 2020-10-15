@@ -231,7 +231,7 @@ export default {
     section{
         width: 80vw;
         display: grid;
-        grid-template-columns:140px auto 180px;
+        grid-template-columns:140px 1fr 180px;
         grid-template-rows: 1fr;
         margin: 0 auto;
         >a{
