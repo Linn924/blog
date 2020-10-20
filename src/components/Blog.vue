@@ -12,92 +12,100 @@
                     <span>Simon</span>
                 </a>
                 <nav>
-                    <li><router-link to="/content" @click.native="reload"><i class="el-icon-s-home" ></i>主页</router-link></li>
-                    <li><router-link to="/me"><i class="el-icon-user-solid"></i>关于我</router-link></li>
+                    <li>
+                        <router-link to="/content" 
+                            @click.native="isSearch?getBlogAgain():''">
+                            <i class="el-icon-s-home"></i>
+                            <span>主页</span>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/me">
+                            <i class="el-icon-user-solid"></i>
+                            <span>关于我</span>
+                        </router-link>
+                    </li>
                 </nav>
-                <el-input size="small" placeholder="搜索" suffix-icon="el-icon-search" v-model="value" @keyup.enter.native="enter" clearable></el-input>
+                <el-input size="small" placeholder="回车搜索" clearable
+                    v-model="value" @keyup.enter.native="enter" suffix-icon="el-icon-search">
+                </el-input>
             </section>
         </header>
 
         <!-- 内容区域 -->
         <main>
             <section>
-                    <!-- 左侧边栏 -->
-                    <aside class="aside-left">
-                        <!-- 个人简介 -->
-                        <div class="me">
+                <!-- 左侧边栏 -->
+                <aside class="aside-left">
+                    <!-- 个人简介 -->
+                    <div class="me">
+                        <header>
+                            <img src="https://s1.ax1x.com/2020/10/12/0WPkND.jpg" alt="">
+                            <div><span>爱开发</span><span>爱学习</span></div>
+                        </header>
+                        <main>
+                            <span>Simon</span>
+                            <span>Learner &amp; Developer</span>
+                            <span class="el-icon-location-outline">江苏 · 南京</span>
+                        </main>
+                        <footer>
                             <header>
-                                <img src="https://s1.ax1x.com/2020/10/12/0WPkND.jpg" alt="">
-                                <div>
-                                    <span>爱开发</span>
-                                    <span>爱学习</span>
+                                <div><span>{{total}}</span><span>文章</span></div>
+                                <div><span>{{sortCount}}</span><span>分类</span>
                                 </div>
                             </header>
-                            <main>
-                                <span>Simon</span>
-                                <span>Learner &amp; Developer</span>
-                                <span class="el-icon-location-outline">江苏 · 南京</span>
-                            </main>
                             <footer>
-                                <header>
-                                    <div>
-                                        <span>{{total}}</span>
-                                        <span>文章</span>                                  
-                                    </div>
-                                    <div>
-                                        <span>{{sortCount}}</span>
-                                        <span>分类</span>
-                                    </div>
-                                </header>
-                                <footer>
-                                    <a href="https://github.com/Linn924">
-                                        <el-tooltip content="GitHub" placement="right">
-                                            <img src="https://infinityicon.infinitynewtab.com/user-share-icon/a23b4cf17327527ae66aad5d13f059da.png" alt="">
-                                        </el-tooltip>
-                                    </a>
-                                    <a href="https://mp.csdn.net/console/article">
-                                        <el-tooltip content="CSDN" placement="left">
-                                            <img src="https://s1.ax1x.com/2020/05/01/JXhclt.png" alt="">
-                                        </el-tooltip>
-                                    </a>
-                                </footer>
+                                <a href="https://github.com/Linn924">
+                                    <el-tooltip content="GitHub" placement="right">
+                                        <img src="https://s1.ax1x.com/2020/05/01/JXhUOK.png" alt="">
+                                    </el-tooltip>
+                                </a>
+                                <a href="https://mp.csdn.net/console/article">
+                                    <el-tooltip content="CSDN" placement="left">
+                                        <img src="https://s1.ax1x.com/2020/05/01/JXhclt.png" alt="">
+                                    </el-tooltip>
+                                </a>
                             </footer>
-                        </div>
-                    </aside>
-                    <!-- 博客文章 -->
-                    <router-view ref="article"></router-view>
-                    <!--右侧边栏 -->
-                    <aside class="aside-right">
-                         <!-- 分类区域 -->
-                        <div class="sort">
-                            <span><i class="el-icon-menu"></i>分类</span>
-                            <div class="line"></div>
-                            <section>
-                                <button v-for="item in sortList" :key="item.id" @click="click_sort(item.id)">{{item.sort_name}}</button>
-                            </section>
-                        </div>
-                        <!-- 最近文章区域 -->
-                        <article>
-                            <span><i class="el-icon-document"></i>最近文章</span>
-                            <div class="line"></div>
-                            <nav>
-                                <li v-for="item in blogList" :key="item.id">
-                                    <label @click="changePath(item)">
-                                        {{item.title}}
-                                    </label>
-                                </li>
-                            </nav>
-                        </article>                      
-                        <!-- 友情链接 -->
-                        <div class="link">
-                            <span><i class="el-icon-link"></i>友情链接</span>
-                            <div class="line"></div>
-                            <nav>
-                                <a href="http://www.linncode.cn:9240" target="__blank">西蒙首页</a>
-                                <a href="http://www.linncode.cn:9549" target="__blank">西蒙导航</a>
-                            </nav>
-                        </div>
-                    </aside>  
+                        </footer>
+                    </div>
+                </aside>
+                <!-- 博客文章 -->
+                <router-view ref="article"></router-view>
+                <!--右侧边栏 -->
+                <aside class="aside-right">
+                        <!-- 分类区域 -->
+                    <div class="sort">
+                        <span><i class="el-icon-folder-opened"></i>分类</span>
+                        <div class="line"></div>
+                        <section>
+                            <button v-for="item in sortList" :key="item.id" 
+                                @click="clickSort(item)">
+                                {{item.sort_name}}
+                            </button>
+                        </section>
+                    </div>
+                    <!-- 最近文章区域 -->
+                    <article>
+                        <span><i class="el-icon-document"></i>最近文章</span>
+                        <div class="line"></div>
+                        <nav>
+                            <li v-for="item in blogList" :key="item.id">
+                                <label @click="changePath(item)">
+                                    {{item.title}}
+                                </label>
+                            </li>
+                        </nav>
+                    </article>                      
+                    <!-- 友情链接 -->
+                    <div class="link">
+                        <span><i class="el-icon-link"></i>个人链接</span>
+                        <div class="line"></div>
+                        <nav>
+                            <a href="http://www.linncode.cn:9240" target="__blank">西蒙首页</a>
+                            <a href="http://www.linncode.cn:9549" target="__blank">西蒙导航</a>
+                        </nav>
+                    </div>
+                </aside>  
             </section>
         </main>
         
@@ -121,20 +129,14 @@ export default {
             sortCount:0,//分类总数
             sortList:[],//分类数据
             value:'',//搜索框数据
+            isSearch:false,//是否点击了搜索
         }
     },
     created() {
         this.getSTData()
         this.getBlogAllData()
          //禁止鼠标右键点击
-        document.oncontextmenu =  () => {
-            event.returnValue = false
-        }
-    },
-    watch: {
-        $route(to,from){//监听路由变化
-            this.disableBtn(to.path)   
-        }
+        document.oncontextmenu =  () => {event.returnValue = false}
     },
     methods: {
         //获取博客最近文章
@@ -149,6 +151,7 @@ export default {
             this.$store.commit("setValue",this.value)
             this.$refs.article.getBlogData()
             this.value = ''
+            this.isSearch = true
         },
         //获取分类与标签数据
         async getSTData(){
@@ -162,28 +165,13 @@ export default {
             this.$store.commit('setMdname',item.mdname)
             this.$router.push({path:`/article?${item.mdname}`})
         },
-        //调用子组件中方法获取所有有关此分类的数据
-        click_sort(id){
-            this.$refs.article.getAboutSortData(id)
+        //跳转路由
+        clickSort(data){
+            this.$router.push(`/content?sort=${data.sort_name}&id=${data.id}`)
         }, 
-        //重载 调用子组件中方法重新获取博客数据
-        reload(){
+        getBlogAgain(){
             this.$refs.article.getBlogData()
-        },
-        //路由发生改变后 禁用button按钮 
-        disableBtn(path){
-            var btns = document.querySelectorAll('.sort button')
-            if(path != '/content'){
-                btns.forEach(item => {
-                    item.setAttribute('disabled','true')
-                    item.style.cursor = 'not-allowed'
-                })
-            }else{
-                btns.forEach(item => {
-                    item.removeAttribute('disabled')
-                    item.style.cursor = 'pointer'
-                })
-            }
+            this.isSearch = false
         }
     }
 }
@@ -347,21 +335,22 @@ export default {
                 .line{border: 1px solid #70A1FF;margin: 10px 0;}
                 section{
                     display: grid;
+                    place-content: center center;
                     grid-template-columns: repeat(3,1fr);
                     gap: 10px;
-                    min-height: 90px;
                     button{
-                        border-radius: 5px;
-                        border: 0;
+                        height: 25px;
+                        border-radius: 4px;
+                        border: none;
                         background-color: rgba(231,76,60);
                         color: #fff;
-                        font-size: 14px;
+                        font-size: 12px;
                         cursor: pointer;
                         outline: none;
                         transition:all .2s;
                         &:nth-child(2n+1){background-color: rgba(112,161,225);}
                         &:nth-child(3n){background-color: rgba(46,204,113);}
-                        &:hover{transform: scale(0.9);}
+                        &:hover{&:hover{opacity: 0.8;}}
                     }
                 }
             }

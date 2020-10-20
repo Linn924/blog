@@ -5,7 +5,7 @@
             <span @click="changePath(item)">{{item.title}}</span>
             <div>
                 <i class="el-icon-date"><span>{{item.date | date}}</span></i>
-                <i class="el-icon-folder"><span>{{item.sort_name}}</span></i>
+                <i class="el-icon-folder-opened"><span>{{item.sort_name}}</span></i>
                 <i class="el-icon-collection-tag"><span>{{item.technology_name}}</span></i>
             </div>
             <p>{{item.introduce}}</p>
@@ -13,9 +13,10 @@
 
         <!-- 分页区域 -->
         <footer>
-            <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                :current-page="queryList.pagenum" :page-sizes="[3, 5, 8]" :page-size="queryList.pagesize"
-                layout="sizes, prev, pager, next" :total="total">
+            <el-pagination background @current-change="handleCurrentChange"
+                :current-page="queryList.pagenum" :page-sizes="[3, 5, 8]" 
+                :page-size="queryList.pagesize" :total="total"
+                layout="prev, pager, next">
             </el-pagination>
         </footer>
         
@@ -36,7 +37,24 @@ export default {
         }
     },
     created() {
-        this.getBlogData()//获取博客数据
+        if(window.location.href.includes('/content?')){
+            let id = window.location.href.split("=")[2]
+            this.getAboutSortData(id)
+        }else{
+            this.getBlogData()
+        }
+    },
+    watch:{
+        $route(to,from){
+            if(to.fullPath.includes('/content?')){
+                let id = to.fullPath.split("=")[2]
+                this.getAboutSortData(id)
+            }
+            if(to.fullPath === '/content'){
+                this.getBlogData()
+            }
+            
+        }
     },
     methods: {
         //获取博客数据
@@ -46,15 +64,11 @@ export default {
             if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1000})
             this.blogList = res.data
             this.total = res.total
+            this.$message({message: `${res.data.length}条数据`,type: 'success',duration:1000})
             this.queryList.key = ''
             this.$store.commit("setValueAgain")
         },
-        //监听每页展示博客数量的变化
-        handleSizeChange(newSize) {
-            this.queryList.pagesize = newSize
-            this.getBlogData()
-        },
-        //监听去往第几页的变化
+        //监听去往第几页
         handleCurrentChange(newNum) {
             this.queryList.pagenum = newNum
             this.getBlogData()
@@ -69,6 +83,8 @@ export default {
             const {data:res} = await this.$http.get('/getAboutSortData',{params:{id}})
             if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1000})
             this.blogList = res.data
+            if(res.data.length == 0) return this.$message({message: '暂无数据',type: 'error',duration:1000})
+            this.$message({message: `${res.data.length}条数据`,type: 'success',duration:1000})
         }
     }
 }
@@ -95,7 +111,7 @@ export default {
             margin: 20px 0;
             i{
                 margin-right: 10px;
-                span{margin-left: 10px;}
+                span{margin-left: 5px;}
             }
         }
     }
