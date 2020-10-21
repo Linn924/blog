@@ -101,8 +101,8 @@
                         <span><i class="el-icon-link"></i>个人链接</span>
                         <div class="line"></div>
                         <nav>
-                            <a href="http://www.linncode.cn:9240" target="__blank">西蒙首页</a>
-                            <a href="http://www.linncode.cn:9549" target="__blank">西蒙导航</a>
+                            <a href="http://home.linncode.cn" target="__blank">西蒙首页</a>
+                            <a href="http://nav.linncode.cn" target="__blank">西蒙导航</a>
                         </nav>
                     </div>
                 </aside>  
