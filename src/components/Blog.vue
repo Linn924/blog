@@ -182,7 +182,7 @@ export default {
 #blog{
     width: 100vw;
     min-height: 100vh;
-    background-color: #F5F8F9;
+    // background-color: #F5F8F9;
     position: relative;
     >header{
         min-height: 60px;

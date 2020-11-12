@@ -7,7 +7,6 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "canvas-nest.js": "^2.0.4",
     "core-js": "^3.6.5",
     "nprogress": "^0.2.0",
     "showdown": "^1.9.1",

@@ -31,7 +31,7 @@ export default {
             queryList:{//默认分页数据
                 key:'',
                 pagenum:1,
-                pagesize:8
+                pagesize:5
             }, 
             total:0,//博客数据总数
         }

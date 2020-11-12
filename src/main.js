@@ -4,6 +4,7 @@ import store from './store'
 import './assets/css/global.css'
 import './assets/css/atom-one-dark.css'
 import './assets/js/clickLove'
+import './assets/js/ribbon'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
