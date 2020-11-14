@@ -1,15 +1,20 @@
-@media screen and (max-width: 600px) {
-  #blog>header section{
-    grid-template-columns: 140px auto!important;
-    grid-template-rows: auto auto!important;
-    grid-template-areas: 'a b' 'c c'!important;
-    padding-top: 10px!important;
-  }
-  #blog>header nav{
-    grid-area: c!important;
+@media screen and (min-width:376px){
+  #blog>header{
+    position: sticky;
+    top: 0;
   }
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 600px) {
+  #blog>header section:first-child{
+    display: none!important;
+  }
+}
+@media screen and (min-width: 601px) {
+  #blog>header section:last-child{
+    display: none!important;
+  }
+}
+@media screen and (max-width: 1260px) {
   #blog>main>section{
     grid-template-columns: 80vw!important;
     grid-template-rows: auto auto!important;
@@ -20,23 +25,6 @@
   } 
   #blog>main>section aside:last-child {
     grid-area: b!important;
-  }
-}
-@media screen and (min-width: 801px) and (max-width: 1260px) {
-  #blog>main>section{
-    grid-template-columns: 1fr 270px!important;
-    grid-template-rows: 350px auto!important;
-    grid-template-areas: 'a b' 'a c'!important;
-    row-gap: 10px!important;
-  }
-  #blog>main>section aside:first-child {
-    grid-area: b!important;
-  }
-  #blog>main>section aside:last-child {
-    grid-area: c!important;
-  }
-  #blog>main>section #content,#blog>main>section #article {
-    grid-area: a!important;
   }
 }
 @media screen and (min-width: 1261px) and (max-width: 1680px) {
@@ -51,5 +39,23 @@
   }
   #blog>main>section #content,#blog>main>section #article {
     grid-area: b!important;
+  }
+}
+@media screen and (min-width: 1681px) {
+  #blog>main aside:first-child .me{
+    position: sticky;
+    top: 80px;
+  }
+  #blog>main aside:last-child .sort{
+    position: sticky;
+    top: 80px;
+  }
+  #blog>main aside:last-child article{
+    position: sticky;
+    top: 250px;
+  }
+  #blog>main aside:last-child .link{
+    position: sticky;
+    top: 468px;
   }
 }

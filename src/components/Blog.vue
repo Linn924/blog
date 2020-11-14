@@ -30,6 +30,32 @@
                     v-model="value" @keyup.enter.native="enter" suffix-icon="el-icon-search">
                 </el-input>
             </section>
+            <section>
+                <img src="https://s1.ax1x.com/2020/10/12/0WPkND.jpg" alt="">
+                <div class="icon">
+                    <i class="el-icon-search" @click="searchBox = true"></i>
+                    <el-dropdown placement="bottom-start" trigger="click">
+                        <span class="el-dropdown-link">
+                            <i class="el-icon-s-operation"></i>
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>
+                                <router-link to="/content" 
+                                    @click.native="isSearch?getBlogAgain():''">
+                                    <i class="el-icon-s-home" style="color:#000"></i>
+                                    <span style="color:#000">home</span>
+                                </router-link>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                                <router-link to="/me">
+                                    <i class="el-icon-user-solid" style="color:#000"></i>
+                                    <span style="color:#000">About</span>
+                                </router-link>
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </div>
+            </section>
         </header>
 
         <!-- 内容区域 -->
@@ -112,11 +138,18 @@
         <!-- 底部区域 -->
         <footer>         
             <section>
-                <p>© 2020 - 2021 LinnCode 版权所有</p>
+                <p>© 2020 - 2021 Simon 版权所有</p>
                 <p>苏ICP备20023864号</p>
             </section>
         </footer>
         
+        <!-- 搜索框对话盒子(手机模式) -->
+        <el-dialog :visible.sync="searchBox" title="搜索框" width="200px">
+            <el-input size="small" placeholder="回车搜索" clearable
+                v-model="value" @keyup.enter.native="enter" suffix-icon="el-icon-search">
+            </el-input>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -130,6 +163,7 @@ export default {
             sortList:[],//分类数据
             value:'',//搜索框数据
             isSearch:false,//是否点击了搜索
+            searchBox:false,//是否显示搜索盒子(在手机模式下)
         }
     },
     created() {
@@ -152,6 +186,7 @@ export default {
             this.$refs.article.getBlogData()
             this.value = ''
             this.isSearch = true
+            this.searchBox = false
         },
         //获取分类与标签数据
         async getSTData(){
@@ -181,13 +216,18 @@ export default {
 @import '../assets/css/blog.css';
 #blog{
     width: 100vw;
+    min-width: 375px;
     min-height: 100vh;
     // background-color: #F5F8F9;
     position: relative;
     >header{
         min-height: 60px;
-        background-color: rgba(255, 255, 255, 0.4);
+        // background-color: rgba(255, 255, 255, 0.4);
+        background-color: #fff;
         box-shadow: 0 2px 10px 0 rgba(0,0,0,0.12);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     >main{
         padding: 2vh 0 5vh 0;
@@ -216,7 +256,7 @@ export default {
     }
 }
 #blog>header{
-    section{
+    section:first-child{
         width: 80vw;
         display: grid;
         grid-template-columns:140px 1fr 180px;
@@ -254,6 +294,26 @@ export default {
                 }
                 
             }
+        }
+    }
+    section:last-child{
+        width: 80vw;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+        .icon i{
+            font-size: 20px;
+            cursor: pointer;
+            transition: all .25s;
+            &:first-child{margin-right: 20px;}
+            &:hover{color: #1E90FF;}
         }
     }
 }

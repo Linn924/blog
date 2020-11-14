@@ -24,7 +24,7 @@ export default {
 <style lang="less" scoped>
 #me{
     width: 100%;
-    height: 220px;
+    min-height: 220px;
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 8px;
     box-shadow: 0 2px 10px 0 rgba(0,0,0,0.12);

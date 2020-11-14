@@ -64,7 +64,7 @@ export default {
             if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1000})
             this.blogList = res.data
             this.total = res.total
-            this.$message({message: `${res.data.length}条数据`,type: 'success',duration:1000})
+            this.$message({message: `${res.data.length}条数据`,type: 'success',duration:1000,offset:60})
             this.queryList.key = ''
             this.$store.commit("setValueAgain")
         },
@@ -83,7 +83,7 @@ export default {
             const {data:res} = await this.$http.get('/getAboutSortData',{params:{id}})
             if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1000})
             this.blogList = res.data
-            if(res.data.length == 0) return this.$message({message: '暂无数据',type: 'error',duration:1000})
+            if(res.data.length == 0) return this.$message({message: '暂无数据',type: 'error',duration:1000,offset:60})
             this.$message({message: `${res.data.length}条数据`,type: 'success',duration:1000})
         }
     }
@@ -102,10 +102,11 @@ export default {
         box-sizing: border-box;
         color: #000;
         >span{
-            font-size: 30px;
+            font-size: 28px;
+            font-weight: 400;
             cursor: pointer;
             transition: color .3s;
-            &:hover{color: #70A1FF;}
+            &:hover{color: #1e90ff;}
         }
         div{
             margin: 20px 0;
@@ -119,5 +120,16 @@ export default {
         display: flex;
         justify-content: center;
     }
+}
+@media screen and (min-width:376px) and (max-width:600px){
+  #content article>span{
+    font-size: 24px;
+  }
+}
+@media screen and (max-width:375px){
+  #content article>span{
+    font-size: 20px;
+    font-weight: bold;
+  }
 }
 </style>
