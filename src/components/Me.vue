@@ -25,6 +25,7 @@ export default {
 #me{
     width: 100%;
     min-height: 220px;
+    max-height: 220px;
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 8px;
     box-shadow: 0 2px 10px 0 rgba(0,0,0,0.12);

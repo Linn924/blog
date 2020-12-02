@@ -64,7 +64,7 @@ export default {
             if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1000})
             this.blogList = res.data
             this.total = res.total
-            this.$message({message: `${res.data.length}条数据`,type: 'success',duration:1000,offset:60})
+            this.$message({message: `${res.data.length}条数据`,type: 'success',duration:1000,offset:10})
             this.queryList.key = ''
             this.$store.commit("setValueAgain")
         },
@@ -83,8 +83,8 @@ export default {
             const {data:res} = await this.$http.get('/getAboutSortData',{params:{id}})
             if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1000})
             this.blogList = res.data
-            if(res.data.length == 0) return this.$message({message: '暂无数据',type: 'error',duration:1000,offset:60})
-            this.$message({message: `${res.data.length}条数据`,type: 'success',duration:1000})
+            if(res.data.length == 0) return this.$message({message: '暂无数据',type: 'error',duration:1000,offset:10})
+            this.$message({message: `${res.data.length}条数据`,type: 'success',duration:1000,offset:10})
         }
     }
 }

@@ -8,7 +8,7 @@
         <header>
             <section>
                 <a href="javascript:void(0);">
-                    <img src="https://s1.ax1x.com/2020/10/12/0WPkND.jpg" alt="">
+                    <img src="https://s3.ax1x.com/2020/12/02/D5a7qK.jpg" alt="">
                     <span>Simon</span>
                 </a>
                 <nav>
@@ -31,7 +31,7 @@
                 </el-input>
             </section>
             <section>
-                <img src="https://s1.ax1x.com/2020/10/12/0WPkND.jpg" alt="">
+                <img src="https://s3.ax1x.com/2020/12/02/D5a7qK.jpg" alt="">
                 <div class="icon">
                     <i class="el-icon-search" @click="searchBox = true"></i>
                     <el-dropdown placement="bottom-start" trigger="click">
@@ -66,7 +66,7 @@
                     <!-- 个人简介 -->
                     <div class="me">
                         <header>
-                            <img src="https://s1.ax1x.com/2020/10/12/0WPkND.jpg" alt="">
+                            <img src="https://s3.ax1x.com/2020/12/02/D5a7qK.jpg" alt="">
                             <div><span>爱开发</span><span>爱学习</span></div>
                         </header>
                         <main>
