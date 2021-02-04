@@ -6,14 +6,44 @@ html,
 body,
 #app{
     height:100vh;
+    min-width: 375px;
+    max-width: 1920px;
 }
 
 a{
     text-decoration: none;
 }
+
+.fail .el-input__inner{
+    border-color: #F56C6C!important;
+}
+.fail .el-input__inner:focus-within{
+    border-color: #F56C6C!important;
+}
+
 /* 浏览器滚动条样式 */
 html{overflow-x: hidden;}
 html::-webkit-scrollbar {width: 6px;}
 html::-webkit-scrollbar-thumb {background-color: #ddd;border-radius: 3px;}
 html::-webkit-scrollbar-track{background-color: #fff;}
 
+.icon {
+    width: 1.6em;
+    height: 1.6em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+.iconSmall {
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+.iconMini {
+    width: 0.8em;
+    height: 0.8em;
+    fill: currentColor;
+    overflow: hidden;
+}

@@ -1,18 +1,20 @@
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 import './assets/css/global.css'
 import './assets/css/atom-one-dark.css'
 import './assets/js/clickLove'
 import './assets/js/ribbon'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
 
-axios.defaults.baseURL='http://139.196.210.43:0924/'
-// axios.defaults.baseURL='http://127.0.0.1:8888/'
+// axios.defaults.baseURL='http://139.196.210.43:0924/'
+axios.defaults.baseURL='http://127.0.0.1:8888/'
 
 axios.interceptors.request.use(config => {
-  NProgress.start()
+  let flag = config.url === 'blogs' || config.url.includes('comments') 
+    || config.url === 'blogsBySort' || config.url === 'blogsByLabel'
+  flag && NProgress.start()
   config.headers.Authorization = window.sessionStorage.getItem('token')
   return config
 })
@@ -22,9 +24,8 @@ axios.interceptors.response.use(config => {
   return config
 })
 
-Vue.prototype.$http = axios
+Vue.prototype.$axios = axios
 Vue.config.productionTip = false
-
 
 //解决路由跳转报错（Avoided redundant navigation to current location ）
 const originalPush = VueRouter.prototype.push
@@ -39,7 +40,6 @@ Vue.directive('highlight', el => {
   })
 })
 
-//处理时间格式的过滤器
 Vue.filter('date', function (originVal) {
   const t = new Date(originVal)
   const y = t.getFullYear()

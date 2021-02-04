@@ -1,11 +1,10 @@
 <template>
     <div id="me">
-        <h1>关于本人</h1>
+        <h1>关于</h1>
         <div class="line"></div>
         <nav>
-            <li>00后，大四，现居南京</li>
+            <li>本人00后，大四，现居徐州</li>
             <li>热爱学习，吃苦耐劳，幽默风趣</li>
-            <li>喜欢和同道中人分享和讨论，热爱团队氛围</li>
             <li>近期愿望：希望能找到一份好的工作</li>
         </nav>
     </div>
@@ -15,7 +14,6 @@
 export default {
     data(){
         return {
-
         }
     }
 }
