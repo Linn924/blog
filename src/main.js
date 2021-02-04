@@ -8,8 +8,8 @@ import './assets/css/atom-one-dark.css'
 import './assets/js/clickLove'
 import './assets/js/ribbon'
 
-// axios.defaults.baseURL='http://139.196.210.43:0924/'
-axios.defaults.baseURL='http://127.0.0.1:8888/'
+axios.defaults.baseURL='http://139.196.210.43:0926/'
+// axios.defaults.baseURL='http://127.0.0.1:8888/'
 
 axios.interceptors.request.use(config => {
   let flag = config.url === 'blogs' || config.url.includes('comments') 
