@@ -20,13 +20,8 @@ export default {
   methods: {
       reload () {
         this.isRouterAlive = false
-        this.$nextTick( ()=> {
-            this.isRouterAlive = true
-        }) 
+        this.$nextTick(()=>{this.isRouterAlive = true}) 
       }
   }
 }
 </script>
-
-<style>
-</style>

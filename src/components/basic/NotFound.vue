@@ -7,7 +7,7 @@
                 <span>MENU</span>
                 <i class="fa fa-bars"></i>
                 <div class="comboBox" v-show="visible">
-                    <i class="el-icon-arrow-up"></i>
+                    <i class="fa fa-angle-up"></i>
                     <router-link v-for="(item,index) in routerList" :key="index" :to="item.router">
                         <i :class="item.className"></i>
                         <span>{{item.name}}</span>
@@ -24,12 +24,12 @@
 
 <script>
 export default {
+    name:'NotFound',
     data(){
         return {
             visible:false,
             routerList:[
-                {name:'首页',router:'/home',className:'el-icon-s-home'},
-                {name:'关于',router:'/home/about',className:'el-icon-user-solid'}
+                {name:'首页',router:'/home',className:'fa fa-home'}
             ]
         }
     }
@@ -39,24 +39,25 @@ export default {
 <style lang="less" scoped>
 #notFound{
     height: 100vh;
+    box-sizing: border-box;
     background-color:#101113;
     box-sizing: border-box;
     font-family: Helvetica;
     header{
-        width: 1200px;
+        width: 62.5vw;
         margin: 0 auto;
         display: flex;
         justify-content: space-around;
         color: #fff;
         padding-top: 20px;
+        box-sizing: border-box;
         span{text-shadow: -2px -2px 10px rgba(255, 255, 255);}
     }
     section{
-        width:inherit;
-        height: inherit;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
         span{
             color: #58CB68;  
             font-size: 24px;

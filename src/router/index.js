@@ -7,9 +7,7 @@ const Register = () => import(/* webpackChunkName: "register" */'../components/f
 const ReSetPwd = () => import(/* webpackChunkName: "resetpwd" */'../components/function/ReSetPwd.vue')
 const PersonalCenter = () => import(/* webpackChunkName: "personalcenter" */'../components/function/PersonalCenter.vue')
 
-
-const About = () => import(/* webpackChunkName: "about_notfound" */'../components/basic/About.vue')
-const NotFound = () => import(/* webpackChunkName: "about_notfound" */'../components/basic/NotFound.vue')
+const NotFound = () => import(/* webpackChunkName: "notfound" */'../components/basic/NotFound.vue')
 
 Vue.use(VueRouter)
 
@@ -17,12 +15,11 @@ const routes = [
   { path: '*', component: NotFound },
   { path:'/', redirect: '/home' },
   { path: '/home', 
-    redirect: '/home/articlelist', 
+    redirect: '/articlelist', 
     component: Home,
     children:[
-      { path:'/home/articlelist', component:ArticleList},
-      { path:'/home/article', component:Article},
-      { path: '/home/about', component: About },
+      { path:'/articlelist', component:ArticleList},
+      { path:'/article', component:Article}
     ]
   },
   { path:'/login', component:Login },
@@ -37,7 +34,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.path === '/personalcenter' && !window.sessionStorage.getItem('token')){
+  if(to.path === '/personalcenter' && !sessionStorage.getItem('token')){
     next('/login')
   }else{
     next()

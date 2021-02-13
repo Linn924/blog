@@ -3,22 +3,16 @@
         <section>
             <!-- 头像 -->
             <a href="javascript:void(0);">
-                <img src="../../assets/cat.jpg" alt="">
+                <img src="../../assets/image/cat.jpg" alt="">
                 <span>LinnCooper</span>
             </a>
             <!-- 导航 -->
             <nav>
                 <li>
-                    <router-link to="/home/articlelist"
+                    <router-link to="/home"
                         @click.native="isSearch?getBlogsAgain():''">
-                        <i class="el-icon-s-home"></i>
+                        <i class="fa fa-home"></i>
                         <span>主页</span>
-                    </router-link>
-                </li>
-                <li v-for="item in navList" :key="item.id">
-                    <router-link :to="item.route">
-                        <i :class="item.className"></i>
-                        <span>{{item.name}}</span>
                     </router-link>
                 </li>
             </nav>
@@ -57,12 +51,6 @@
                             <span style="color:#000">首页</span>
                         </router-link>
                     </el-dropdown-item>
-                    <el-dropdown-item>
-                        <router-link to="/home/about">
-                            <i class="el-icon-user-solid" style="color:#000"></i>
-                            <span style="color:#000">关于</span>
-                        </router-link>
-                    </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </section>
@@ -73,18 +61,22 @@
 <script>
 export default {
     inject:['reload'],
+    name:'Header',
     props:{
-        'getBlogsAgain':Function,
-        'isSearch':Boolean,
+        getBlogsAgain:{
+            type:Function,
+            required:true
+        },
+        isSearch:{
+            type:Boolean,
+            required:true
+        }
     },
     data(){
         return {
             username:'', //昵称
             status:false,//登录状态         
             personBoxShow:false,//控制个人中心盒子显隐 
-            navList:[//导航列表
-                {id:1,name:'关于',className:'el-icon-user-solid',route:'/home/about'}
-            ],
         }
     },
     created(){

@@ -1,20 +1,14 @@
 <template>
     <footer>
         <section>
-            <p>{{content1}}</p>
-            <p>{{content2}}</p>
+            <p>© 2021 LinnCooper</p>
         </section>
     </footer>
 </template>
 
 <script>
 export default {
-    data(){
-        return {
-            content1:'© 2020 - 2021 Simon 版权所有',
-            content2:'苏ICP备20023864号'
-        }
-    }
+    name:'Footer'
 }
 </script>
 

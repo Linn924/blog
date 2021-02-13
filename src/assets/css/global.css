@@ -10,9 +10,7 @@ body,
     max-width: 1920px;
 }
 
-a{
-    text-decoration: none;
-}
+a{text-decoration: none;}
 
 .fail .el-input__inner{
     border-color: #F56C6C!important;
@@ -21,7 +19,6 @@ a{
     border-color: #F56C6C!important;
 }
 
-/* 浏览器滚动条样式 */
 html{overflow-x: hidden;}
 html::-webkit-scrollbar {width: 6px;}
 html::-webkit-scrollbar-thumb {background-color: #ddd;border-radius: 3px;}

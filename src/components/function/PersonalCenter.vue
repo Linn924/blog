@@ -91,7 +91,8 @@
 import Header from '../basic/Header.vue'
 import Footer from '../basic/Footer.vue'
 export default {
-    inject:['reload'],//注入重载方法
+    inject:['reload'],
+    name:'PersonalCenter',
     components:{//私有组件
         Header,
         Footer
@@ -169,11 +170,13 @@ export default {
         },
         //修改个人信息
         async putUsers(){
-            if(this.disabled) return this.$message({message:'未作出任何修改',type:'error',duration:1200})
+            if(this.disabled) 
+            return this.$message({message:'未作出任何修改',type:'error',duration:1200})
             if(!this.isSuccessEmail && !this.isSuccessUname) 
             return this.$message({message:'请按规定修改信息',type:'error',duration:1200})
-            const {data:res} = await this.$axios.put('users',this.userForm)
-            if(res.code !== 200) return this.$message({message:`${res.tips}`,type:'error',duration:1200})
+            const {data:res} = await this.axios.put('users',this.userForm)
+            if(res.code !== 200) 
+            return this.$message({message:`${res.tips}`,type:'error',duration:1200})
             this.$message({message:`${res.tips}`,type:'success',duration:1200})
             this.putStorage()
             this.reload()
@@ -193,7 +196,7 @@ export default {
         checkName(){
             clearTimeout(this.timerUname)
             this.timerUname = setTimeout(async () => {
-                const {data:res} = await this.$axios.get('checkName',{
+                const {data:res} = await this.axios.get('checkName',{
                     params:{
                         username:this.userForm.username,
                         status:this.userForm.status
@@ -232,7 +235,7 @@ export default {
             formData.append('image', image)  // 通过append向form对象添加数据
             formData.append('username',this.userForm.username)
             formData.append('avatar',this.userForm.avatar)
-            const {data:res} = await this.$axios.post('images',formData)
+            const {data:res} = await this.axios.post('images',formData)
             if(res.code != 200) return this.$message({message:`${res.tips}`,type:'error',duration:1200})
             this.$message({message:`${res.tips}`,type:'success',duration:1200})
             this.userForm.avatar = res.data
@@ -241,13 +244,13 @@ export default {
         },
         //获取用户评论过的所有博客信息
         async getBlogs(){
-            const {data:res} = await this.$axios.get(`blogs/${this.userForm.id}`)
+            const {data:res} = await this.axios.get(`blogs/${this.userForm.id}`)
             if(res.code !== 200) return new Error()
             this.blogList = res.data
         },
         //进入相应的博客
         readBlogs(item){
-            this.$router.push({path:`/home/article?${item.mdname}`})
+            this.$router.push({path:`/article?${item.mdname}`})
             if(sessionStorage.token){
                 this.saveOperateLog(item.title)
             }

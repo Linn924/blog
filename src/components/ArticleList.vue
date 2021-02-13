@@ -1,21 +1,42 @@
 <template>
     <div id="content">
         <!-- 博客区域 -->
-        <article v-for="item in blogList" :key="item.id">
-            <span @click="readBlogs(item)">{{item.title}}</span>
+        <article 
+            v-for="item in blogList" 
+            :key="item.id">
+            <span 
+                @click="readBlogs(item)">
+                {{item.title}}
+            </span>
             <div>
-                <i class="el-icon-date"><span>{{item.date | date}}</span></i>
-                <i class="el-icon-folder-opened"><span @click="clickSort(item)">{{item.sort_name}}</span></i>
-                <i class="el-icon-collection-tag"><span @click="clickLabel(item)">{{item.technology_name}}</span></i>
+                <i class="el-icon-date">
+                    <span>{{item.date | date}}</span>
+                </i>
+                <i class="el-icon-folder-opened">
+                    <span 
+                        @click="clickSort(item)">
+                        {{item.sort_name}}
+                    </span>
+                </i>
+                <i class="el-icon-collection-tag">
+                    <span 
+                        @click="clickLabel(item)">
+                        {{item.technology_name}}
+                    </span>
+                </i>
             </div>
             <p>{{item.introduce}}</p>
         </article>
 
         <!-- 分页区域 -->
         <footer>
-            <el-pagination background @current-change="handleCurrentChange"
-                :current-page="queryList.pagenum" :page-sizes="[3, 5, 8]" 
-                :page-size="queryList.pagesize" :total="total"
+            <el-pagination 
+                background 
+                @current-change="handleCurrentChange"
+                :current-page="queryList.pagenum" 
+                :page-sizes="[3, 5, 8]" 
+                :page-size="queryList.pagesize" 
+                :total="total"
                 layout="prev, pager, next">
             </el-pagination>
         </footer>
@@ -25,8 +46,12 @@
 
 <script>
 export default {
+    name:'ArticleList',
     props:{
-        'value':String
+        value:{
+            type:String,
+            required:true
+        }
     },
     data(){
         return {
@@ -40,10 +65,10 @@ export default {
         }
     },
     created() {
-        if(location.href.includes('/home/articlelist?sort')){
+        if(location.href.includes('/articlelist?sort')){
             let id = location.href.split("=")[2]
             this.getBlogsBySort(id)
-        }else if(location.href.includes('/home/articlelist?label')){
+        }else if(location.href.includes('/articlelist?label')){
             let id = location.href.split("=")[2]
             this.getBlogsByLabel(id)
         }else{
@@ -52,14 +77,14 @@ export default {
     },
     watch:{
         $route(to){
-            if(to.fullPath.includes('/home/articlelist?sort')){
+            if(to.fullPath.includes('/articlelist?sort')){
                 let id = to.fullPath.split("=")[2]
                 this.getBlogsBySort(id)
-            }else if(to.fullPath.includes('/home/articlelist?label')){
+            }else if(to.fullPath.includes('/articlelist?label')){
                 let id = to.fullPath.split("=")[2]
                 this.getBlogsByLabel(id)
             }
-            if(to.fullPath === '/home/articlelist'){
+            if(to.fullPath === '/articlelist'){
                 this.getBlogs()
             }
         }
@@ -68,8 +93,9 @@ export default {
         //获取博客数据
         async getBlogs(){
             this.queryList.key = this.value
-            const {data:res} = await this.$axios.get("blogs",{params:this.queryList})
-            if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
+            const {data:res} = await this.axios.get("blogs",{params:this.queryList})
+            if(res.code != 200) 
+            return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
             this.blogList = res.data
             this.total = res.total
             this.queryList.key = ''
@@ -81,7 +107,7 @@ export default {
         },
         //监听要查看的博客地址
         readBlogs(item){
-            this.$router.push({path:`/home/article?${item.mdname}`})
+            this.$router.push({path:`/article?${item.mdname}`})
             if(sessionStorage.token){
                 this.saveOperateLog(item.title)
                 this.addPageviews(item)
@@ -104,28 +130,31 @@ export default {
                 blog_id:data.id,
                 pageviews:data.pageviews + 1
             }
-            const {data:res} = await this.$axios.put('blogsPageview',blogForm)
-            if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
+            const {data:res} = await this.axios.put('blogsPageview',blogForm)
+            if(res.code != 200) 
+            return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
         },
         //根据点击的分类id获取所有有关此分类的数据
         async getBlogsBySort(id){
-            const {data:res} = await this.$axios.get('blogsBySort',{params:{id}})
-            if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
+            const {data:res} = await this.axios.get('blogsBySort',{params:{id}})
+            if(res.code != 200) 
+            return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
             this.blogList = res.data
         },
         //根据点击的标签id获取所有有关此标签的数据
         async getBlogsByLabel(id){
-            const {data:res} = await this.$axios.get('blogsByLabel',{params:{id}})
-            if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
+            const {data:res} = await this.axios.get('blogsByLabel',{params:{id}})
+            if(res.code != 200) 
+            return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
             this.blogList = res.data
         },
         //根据分类查询博客
         clickSort(data){
-            this.$router.push(`/home/articlelist?sort=${data.sort_name}&id=${data.sortId}`)
+            this.$router.push(`/articlelist?sort=${data.sort_name}&id=${data.sortId}`)
         },
         //根据标签查询博客
         clickLabel(data){
-            this.$router.push(`/home/articlelist?label=${data.technology_name}&id=${data.technologyId}`)
+            this.$router.push(`/articlelist?label=${data.technology_name}&id=${data.technologyId}`)
         }
     }
 }

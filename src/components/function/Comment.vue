@@ -60,11 +60,21 @@
 
 <script>
 export default {
-    inject:['reload'],//注入重载方法
+    inject:['reload'],
+    name:'Comment',
     props:{
-        'commentList':Array,
-        'id':Number,
-        'getComments':Function
+        commentList:{
+            type:Array,
+            required:true
+        },
+        id:{
+            type:Number,
+            required:true
+        },
+        getComments:{
+            type:Function,
+            required:true
+        }
     },
     data(){
         return {
@@ -81,7 +91,7 @@ export default {
         }
     },
     created(){
-        let userForm = JSON.parse(window.sessionStorage.getItem('userForm'))
+        let userForm = JSON.parse(sessionStorage.getItem('userForm'))
         if(userForm) {
             this.commentForm.user_id = userForm.id
             this.user_avatar = userForm.avatar
@@ -127,13 +137,13 @@ export default {
         async postComments(){
             if(!sessionStorage.token) {
                 this.commentForm.content = ''
-                return this.$message({message:'您还没有登录，请点击右上角的登录链接',type:'error'})
+                return this.$message({message:'您还没有登录，请点击右上角的登录链接',type:'error',duration:1200})
             } 
-            if(this.commentForm.content.length === 0) 
+            if(!this.commentForm.content.length) 
             return this.$message({message:'您还没有评论',type:'error',duration:1200})
             this.commentForm.blog_id = this.id
             this.commentForm.date = this.dealDate(this.commentForm.date)
-            const {data:res} = await this.$axios.post('comments',this.commentForm)
+            const {data:res} = await this.axios.post('comments',this.commentForm)
             if(res.code != 200) {
                 this.commentForm.content = ''
                 return this.$message({message:`${res.tips}`,type:'error',duration:1200})
@@ -147,7 +157,7 @@ export default {
             if(!sessionStorage.token) 
             return this.$message({message:'您还没有登录，请点击右上角的登录链接',type:'error',duration:1200})
             let commentForm = this.dealAgree(data,index)
-            const {data:res} = await this.$axios.put('comments',commentForm)
+            const {data:res} = await this.axios.put('comments',commentForm)
             if(res.code != 200) {
                 this.agreeArr[index].status = !this.agreeArr[index].status
                 return this.$message({message:`${res.tips}`,type:'error',duration:1200})
@@ -206,8 +216,9 @@ export default {
             replyForm.commentator_id = this.commentForm.user_id
             replyForm.respondent_id = data.user_id
             replyForm.reply_content = this.replyArr[index].content.split(`回复${data.username}:`)[1]
-            const {data:res} = await this.$axios.post('replyComment',replyForm)
-            if(res.code != 200) return this.$message({message:`${res.tips}`,type:'error',duration:1200})
+            const {data:res} = await this.axios.post('replyComment',replyForm)
+            if(res.code != 200) 
+            return this.$message({message:`${res.tips}`,type:'error',duration:1200})
             this.$message({message:`${res.tips}`,type:'success',duration:1200})
             this.getComments(sessionStorage.getItem('blog_id'))
         },

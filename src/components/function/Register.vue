@@ -55,6 +55,7 @@
 
 <script>
 export default {
+    name:'Register',
     data(){
         // 验证邮箱的规则
         let checkEmail = (rule, value, cb) => {
@@ -108,7 +109,7 @@ export default {
         checkName(){
             clearTimeout(this.timer)
             this.timer = setTimeout(async () => {
-                const {data:res} = await this.$axios.get('checkName',{
+                const {data:res} = await this.axios.get('checkName',{
                     params:{
                         username:this.registerForm.username,
                         status:this.registerForm.status
@@ -133,8 +134,9 @@ export default {
             }
             this.$refs.registerFormRef.validate( async valid => {
                 if(!valid) return
-                const {data:res} = await this.$axios.post('users',this.registerForm)
-                if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
+                const {data:res} = await this.axios.post('register',this.registerForm)
+                if(res.code != 200) 
+                return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
                 this.$message({message: `${res.tips}`,type: 'success',duration:1200})
                 this.$router.push('/login')
             })
@@ -146,7 +148,7 @@ export default {
 <style lang="less" scoped>
 .register{
     height: 100vh;
-    background: url(https://s3.ax1x.com/2021/02/04/y1r534.jpg) no-repeat center center;
+    background: url('../../assets/image/work.jpg') no-repeat center center;
     .mask{
         height: 100%;
         background-image: radial-gradient(rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%),radial-gradient(rgba(0,0,0,0) 33%,rgba(0,0,0,0.3) 166%);

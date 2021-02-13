@@ -1,9 +1,15 @@
 <template>
     <div id="article">
-        <!-- 博客 -->
-        <article v-html="html" v-highlight class="markdown-body md"></article>
-        <!-- 评论 -->
-        <Comment :commentList="commentList" :id="blog_id" :getComments="getComments"></Comment>
+        <article 
+            v-html="html" 
+            v-highlight 
+            class="markdown-body md">
+        </article>
+        <Comment 
+            :commentList="commentList" 
+            :id="blog_id" 
+            :getComments="getComments">
+        </Comment>
     </div>
 </template>
 
@@ -11,6 +17,7 @@
 import showdown from 'showdown'
 import Comment from './function/Comment'
 export default {
+    name:'Article',
     components:{
         Comment,//评论组件
     },
@@ -34,8 +41,9 @@ export default {
         async getContent(){
             const converter = new showdown.Converter()
             const mdname = location.href.split("?")[1]
-            const {data:res} = await this.$axios.get(`content/${mdname}`)
-            if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
+            const {data:res} = await this.axios.get(`content/${mdname}`)
+            if(res.code != 200) 
+            return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
             this.html = converter.makeHtml(res.data[0].content)
             sessionStorage.setItem('blog_id',res.data[0].id)
             this.blog_id = res.data[0].id
@@ -43,8 +51,9 @@ export default {
         },
         //根据当前博客id获取所有与当前博客相关的评论
         async getComments(id){
-            const {data:res} = await this.$axios.get(`comments/${id}`)
-            if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
+            const {data:res} = await this.axios.get(`comments/${id}`)
+            if(res.code != 200) 
+            return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
             this.dealComments(res)
         },
         //处理获取到的与博客相关的评论

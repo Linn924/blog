@@ -1,17 +1,21 @@
 <template>
     <div id="blog">
 
-        <el-backtop><i class="el-icon-caret-top"></i></el-backtop>
+        <el-backtop>
+            <i class="el-icon-caret-top"></i>
+        </el-backtop>
         
-        <Header :getBlogsAgain="getBlogsAgain" :isSearch="isSearch"></Header>
+        <Header 
+            :getBlogsAgain="getBlogsAgain" 
+            :isSearch="isSearch">
+        </Header>
 
         <main>
             <section>
-
                 <aside class="aside-left">
                     <div class="me">
                         <header>
-                            <img src="../assets/avatar.jpg" alt="">
+                            <img src="../assets/image/avatar.jpg">
                             <div><span>爱开发</span><span>爱学习</span></div>
                         </header>
                         <main>
@@ -26,14 +30,14 @@
                                 </div>
                             </header>
                             <footer>
-                                <a href="https://github.com/Linn924">
+                                <a href="https://github.com/Linn924" target="_blank">
                                     <el-tooltip content="GitHub" placement="right">
                                         <img src="https://api.iowen.cn/favicon/github.com.png" alt="">
                                     </el-tooltip>
                                 </a>
-                                <a href="https://mp.csdn.net/console/article">
+                                <a href="http://www.linncode.cn/" target="_blank">
                                     <el-tooltip content="个人主页" placement="left">
-                                        <img src="../assets/cat.jpg" alt="">
+                                        <img src="https://api.iowen.cn/favicon/www.linncode.cn.png" alt="">
                                     </el-tooltip>
                                 </a>
                             </footer>
@@ -47,15 +51,19 @@
                     <div class="search">
                         <span><i class="el-icon-search"></i>搜索</span>
                         <div class="line"></div>
-                        <el-input size="small" placeholder="按标题搜索" clearable
-                            v-model="value" @keyup.enter.native="enter" suffix-icon="el-icon-search">
+                        <el-input 
+                            size="small" placeholder="按标题搜索" clearable
+                            v-model="value" @keyup.enter.native="enter" 
+                            suffix-icon="el-icon-search">
                         </el-input>
                     </div>
                     <div class="sort">
                         <span><i class="el-icon-folder-opened"></i>分类</span>
                         <div class="line"></div>
                         <section>
-                            <button v-for="item in sortList" :key="item.id" 
+                            <button 
+                                v-for="item in sortList" 
+                                :key="item.id" 
                                 @click="clickSort(item)">
                                 {{item.sort_name}}
                             </button>
@@ -66,7 +74,8 @@
                         <div class="line"></div>
                         <nav>
                             <li v-for="item in blogList" :key="item.id">
-                                <label @click="readBlogs(item)">
+                                <label 
+                                    @click="readBlogs(item)">
                                     {{item.title}}
                                 </label>
                             </li>
@@ -85,6 +94,7 @@ import Header from './basic/Header.vue'
 import Footer from './basic/Footer.vue'
 export default {
     inject:['reload'],
+    name:'Home',
     components:{
         Header,
         Footer
@@ -98,8 +108,6 @@ export default {
             value:'',//搜索框数据
             isSearch:false,//是否点击了搜索
             imageList:[//预加载图片数据
-                'https://s3.ax1x.com/2021/02/02/ynl0PJ.jpg',
-                'https://s3.ax1x.com/2021/02/04/y1r534.jpg',
                 'https://s3.ax1x.com/2020/12/09/r9jlDg.png'
             ],
         }
@@ -121,8 +129,9 @@ export default {
         },
         //获取博客最近文章
         async getRecentBlogs(){
-            const {data:res} = await this.$axios.get('recentBlogs')
-            if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
+            const {data:res} = await this.axios.get('recentBlogs')
+            if(res.code != 200) 
+            return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
             this.total = res.total
             this.blogList = res.data
         },
@@ -134,14 +143,15 @@ export default {
         },
         //获取分类数据
         async getSorts(){
-            const {data:res} = await this.$axios.get("sortsAndlabels")
-            if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
+            const {data:res} = await this.axios.get("sortsAndlabels")
+            if(res.code != 200) 
+            return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
             this.sortList = res.data.data
             this.sortCount = this.sortList.length
         },
         //监听要查看的博客地址
         readBlogs(item){
-            this.$router.push({path:`/home/article?${item.mdname}`})
+            this.$router.push({path:`/article?${item.mdname}`})
             if(sessionStorage.token){
                 this.saveOperateLog(item.title)
                 this.addPageviews(item)
@@ -164,12 +174,13 @@ export default {
                 blog_id:data.id,
                 pageviews:data.pageviews + 1
             }
-            const {data:res} = await this.$axios.put('blogsPageview',blogForm)
-            if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
+            const {data:res} = await this.axios.put('blogsPageview',blogForm)
+            if(res.code != 200) 
+            return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
         },
         //跳转路由
         clickSort(data){
-            this.$router.push(`/home/articlelist?sort=${data.sort_name}&id=${data.id}`)
+            this.$router.push(`/articlelist?sort=${data.sort_name}&id=${data.id}`)
         }, 
         //再次获取博客列表
         getBlogsAgain(){

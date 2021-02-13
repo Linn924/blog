@@ -54,6 +54,7 @@
 
 <script>
 export default {
+    name:'ReSetPwd',
     data(){
         // 验证邮箱的规则
         let checkEmail = (rule, value, cb) => {
@@ -120,8 +121,9 @@ export default {
             if(this.active === 1){
                 this.$refs.validateFormOneRef.validate( async valid => {
                     if(!valid) return
-                    const {data:res} = await this.$axios.get('checkIdentity',{params:this.validateFormOne})
-                    if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
+                    const {data:res} = await this.axios.get('checkIdentity',{params:this.validateFormOne})
+                    if(res.code != 200) 
+                    return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
                     this.$message({message: `${res.tips}`,type: 'success',duration:1200})
                     this.validateFormTwo.username = this.validateFormOne.username
                     this.active++
@@ -129,8 +131,9 @@ export default {
             }else if(this.active === 2){
                 this.$refs.validateFormTwoRef.validate( async valid => {
                     if(!valid) return
-                    const {data:res} = await this.$axios.put('password',this.validateFormTwo)
-                    if(res.code != 200) return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
+                    const {data:res} = await this.axios.put('password',this.validateFormTwo)
+                    if(res.code != 200) 
+                    return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
                     this.$message({message: `${res.tips}`,type: 'success',duration:1200})
                     this.active++
                 })
@@ -143,7 +146,7 @@ export default {
 <style lang="less" scoped>
 .resetpwd{
     height: 100vh;
-    background: url(https://s3.ax1x.com/2021/02/04/y1r534.jpg) no-repeat center center;
+    background: url('../../assets/image/work.jpg') no-repeat center center;
     .mask{
         height: 100%;
         background-image: radial-gradient(rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%),radial-gradient(rgba(0,0,0,0) 33%,rgba(0,0,0,0.3) 166%);

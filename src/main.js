@@ -12,10 +12,10 @@ axios.defaults.baseURL='http://139.196.210.43:0926/'
 // axios.defaults.baseURL='http://127.0.0.1:8888/'
 
 axios.interceptors.request.use(config => {
-  let flag = config.url === 'blogs' || config.url.includes('comments') 
-    || config.url === 'blogsBySort' || config.url === 'blogsByLabel'
+  let url = config.url
+  let flag = url == 'blogs' || url.includes('comments') || url == 'blogsBySort' || url == 'blogsByLabel'
   flag && NProgress.start()
-  config.headers.Authorization = window.sessionStorage.getItem('token')
+  config.headers.Authorization = sessionStorage.getItem('token')
   return config
 })
 
@@ -24,13 +24,12 @@ axios.interceptors.response.use(config => {
   return config
 })
 
-Vue.prototype.$axios = axios
+Vue.prototype.axios = axios
 Vue.config.productionTip = false
 
-//解决路由跳转报错（Avoided redundant navigation to current location ）
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
-    return originalPush.call(this, location).catch(err => err)
+  return originalPush.call(this, location).catch(err => err)
 }
 
 Vue.directive('highlight', el => {
@@ -48,7 +47,6 @@ Vue.filter('date', function (originVal) {
   const hh = (t.getHours() + '').padStart(2, '0')
   const mm = (t.getMinutes() + '').padStart(2, '0')
   const ss = (t.getSeconds() + '').padStart(2, '0')
-
   return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
 })
 
