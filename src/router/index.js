@@ -1,13 +1,11 @@
 const Home = () => import(/* webpackChunkName: "home" */'../components/Home.vue')
-const ArticleList = () => import(/* webpackChunkName: "articlelist" */'../components/ArticleList.vue')
-const Article = () => import(/* webpackChunkName: "article" */'../components/Article.vue')
-
-const Login = () => import(/* webpackChunkName: "login" */'../components/function/Login.vue')
-const Register = () => import(/* webpackChunkName: "register" */'../components/function/Register.vue')
-const ReSetPwd = () => import(/* webpackChunkName: "resetpwd" */'../components/function/ReSetPwd.vue')
-const PersonalCenter = () => import(/* webpackChunkName: "personalcenter" */'../components/function/PersonalCenter.vue')
-
-const NotFound = () => import(/* webpackChunkName: "notfound" */'../components/basic/NotFound.vue')
+const ArticleList = () => import(/* webpackChunkName: "articlelist" */'../components/dynamic/ArticleList.vue')
+const Article = () => import(/* webpackChunkName: "article" */'../components/dynamic/Article.vue')
+const Login = () => import(/* webpackChunkName: "login" */'../components/dynamic/Login.vue')
+const Register = () => import(/* webpackChunkName: "register" */'../components/dynamic/Register.vue')
+const ReSetPwd = () => import(/* webpackChunkName: "resetpwd" */'../components/dynamic/ReSetPwd.vue')
+const PersonalCenter = () => import(/* webpackChunkName: "personalcenter" */'../components/dynamic/PersonalCenter.vue')
+const NotFound = () => import(/* webpackChunkName: "notfound" */'../components/dynamic/NotFound.vue')
 
 Vue.use(VueRouter)
 

@@ -2,7 +2,6 @@
     <div id="notFound">
         <header>
             <span>LinnCooper</span>
-            
             <div class="menu" @mouseenter="visible = true" @mouseleave="visible = false">
                 <span>MENU</span>
                 <i class="fa fa-bars"></i>

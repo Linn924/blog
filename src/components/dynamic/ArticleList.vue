@@ -1,6 +1,5 @@
 <template>
-    <div id="content">
-        <!-- 博客区域 -->
+    <div id="articlelist">
         <article 
             v-for="item in blogList" 
             :key="item.id">
@@ -27,9 +26,7 @@
             </div>
             <p>{{item.introduce}}</p>
         </article>
-
-        <!-- 分页区域 -->
-        <footer>
+        <footer v-show="isPaging">
             <el-pagination 
                 background 
                 @current-change="handleCurrentChange"
@@ -51,6 +48,18 @@ export default {
         value:{
             type:String,
             required:true
+        },
+        isPaging:{
+            type:Boolean,
+            required:true
+        },
+        hidePage:{
+            type:Function,
+            reuqired:true
+        },
+        showPage:{
+            type:Function,
+            reuqired:true
         }
     },
     data(){
@@ -93,6 +102,8 @@ export default {
         //获取博客数据
         async getBlogs(){
             this.queryList.key = this.value
+            !this.value && this.showPage()
+            this.value && this.hidePage()
             const {data:res} = await this.axios.get("blogs",{params:this.queryList})
             if(res.code != 200) 
             return this.$message({message: `${res.tips}`,type: 'error',duration:1200})
@@ -150,10 +161,12 @@ export default {
         },
         //根据分类查询博客
         clickSort(data){
+            this.hidePage()
             this.$router.push(`/articlelist?sort=${data.sort_name}&id=${data.sortId}`)
         },
         //根据标签查询博客
         clickLabel(data){
+            this.hidePage()
             this.$router.push(`/articlelist?label=${data.technology_name}&id=${data.technologyId}`)
         }
     }
@@ -161,7 +174,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#content{
+#articlelist{
     width: 100%;
     article{
         background-color: rgba(255, 255, 255, 0.4);
@@ -197,12 +210,12 @@ export default {
     }
 }
 @media screen and (min-width:376px) and (max-width:600px){
-  #content article>span{
+  #articlelist article>span{
     font-size: 24px;
   }
 }
 @media screen and (max-width:375px){
-  #content article>span{
+  #articlelist article>span{
     font-size: 20px;
     font-weight: bold;
   }

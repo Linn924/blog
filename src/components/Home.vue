@@ -1,5 +1,5 @@
 <template>
-    <div id="blog">
+    <div id="home">
 
         <el-backtop>
             <i class="el-icon-caret-top"></i>
@@ -45,7 +45,13 @@
                     </div>
                 </aside>
 
-                <router-view ref="article" :value="value"></router-view>
+                <router-view 
+                    ref="article" 
+                    :value="value" 
+                    :isPaging="isPaging" 
+                    :hidePage="hidePage" 
+                    :showPage="showPage">
+                </router-view>
 
                 <aside class="aside-right">
                     <div class="search">
@@ -90,8 +96,8 @@
 </template>
 
 <script>
-import Header from './basic/Header.vue'
-import Footer from './basic/Footer.vue'
+import Header from './static/Header.vue'
+import Footer from './static/Footer.vue'
 export default {
     inject:['reload'],
     name:'Home',
@@ -110,6 +116,7 @@ export default {
             imageList:[//预加载图片数据
                 'https://s3.ax1x.com/2020/12/09/r9jlDg.png'
             ],
+            isPaging:true,//是否显示分页
         }
     },
     created() {
@@ -181,18 +188,27 @@ export default {
         //跳转路由
         clickSort(data){
             this.$router.push(`/articlelist?sort=${data.sort_name}&id=${data.id}`)
+            this.isPaging = false
         }, 
         //再次获取博客列表
         getBlogsAgain(){
             this.$refs.article.getBlogs()
             this.isSearch = false
+        },
+        //隐藏分页组件
+        hidePage(){
+            this.isPaging = false
+        },
+        //显示分页组件
+        showPage(){
+            this.isPaging = true
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
-#blog{
+#home{
     width: 100vw;
     min-width: 375px;
     min-height: 100vh;
@@ -216,7 +232,7 @@ export default {
         color:#2468F2;
     }
 }
-#blog>main{
+#home>main{
     aside:first-child{
         width: 100%;
         .me{
@@ -342,46 +358,46 @@ export default {
     }  
 }
 @media screen and (max-width: 1260px) {
-  #blog>main>section{
+  #home>main>section{
     grid-template-columns: 80vw!important;
     grid-template-rows: auto auto!important;
     grid-template-areas: 'a' 'b'!important;
   }
-  #blog>main>section aside:first-child{
+  #home>main>section aside:first-child{
     display: none!important;
   } 
-  #blog>main>section aside:last-child {
+  #home>main>section aside:last-child {
     grid-area: b!important;
   }
 }
 @media screen and (min-width: 1261px) and (max-width: 1680px) {
-  #blog>main>section{
+  #home>main>section{
     grid-template-columns: 300px 1fr!important;
     grid-template-rows: 350px auto!important;
     grid-template-areas: 'a b' 'c b'!important;
     row-gap: 10px!important;
   }
-  #blog>main>section aside:last-child {
+  #home>main>section aside:last-child {
     grid-area: c!important;
   }
-  #blog>main>section #content,#blog>main>section #article {
+  #home>main>section #content,#home>main>section #article {
     grid-area: b!important;
   }
 }
 @media screen and (min-width: 1681px) {
-  #blog>main aside:first-child .me{
+  #home>main aside:first-child .me{
     position: sticky;
     top: 80px;
   }
-  #blog>main aside:last-child .search{
+  #home>main aside:last-child .search{
     position: sticky;
     top: 80px;
   }
-  #blog>main aside:last-child .sort{
+  #home>main aside:last-child .sort{
     position: sticky;
     top: 190px;
   }
-  #blog>main aside:last-child article{
+  #home>main aside:last-child article{
     position: sticky;
     top: 360px;
   }

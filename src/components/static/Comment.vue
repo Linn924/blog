@@ -1,5 +1,5 @@
 <template>
-    <div class="comment">
+    <div id="comment">
         <div class="title-comment">
             <span>评论</span>
             <span>共{{commentList.length}}条评论</span>
@@ -238,7 +238,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.comment{
+#comment{
     box-sizing: border-box;
     padding: 0 20px;
 }

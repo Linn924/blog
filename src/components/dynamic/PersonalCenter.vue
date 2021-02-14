@@ -2,7 +2,6 @@
     <div class="personal-center">
         <Header :isSearch="false"></Header>
         <main>
-            <!-- 左侧导航 -->
             <div class="main-left">
                 <nav>
                     <li v-for="item in navList" :key="item.id" @click="switchNav(item.id)"  
@@ -12,9 +11,7 @@
                     </li>
                 </nav>
             </div>
-            <!-- 右侧与导航相对应模块 -->
             <div class="main-right">
-                <!-- 个人信息 -->
                 <div class="personal-information" v-show="currentIndex == 0">
                     <div class="basic-data">
                         <div class="basic-data-title">
@@ -60,9 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- 评论文章 -->
                 <div class="comment-article" v-show="currentIndex == 1">
-                    <!-- 博客区域 -->
                     <article v-for="item in blogList" :key="item.id">
                         <span @click="readBlogs(item)">{{item.title}}</span>
                         <div>
@@ -71,7 +66,6 @@
                         <p>{{item.introduce}}</p>
                     </article>
                 </div>
-                <!-- 操作日志 -->
                 <div class="operation-log" v-show="currentIndex == 2">
                     <el-timeline :reverse="true">
                         <el-timeline-item v-for="(item,index) in operationlogArr" :key="index" :timestamp="item.time" placement="top">
@@ -88,12 +82,12 @@
 </template>
 
 <script>
-import Header from '../basic/Header.vue'
-import Footer from '../basic/Footer.vue'
+import Header from '../static/Header.vue'
+import Footer from '../static/Footer.vue'
 export default {
     inject:['reload'],
     name:'PersonalCenter',
-    components:{//私有组件
+    components:{
         Header,
         Footer
     },
@@ -272,8 +266,7 @@ export default {
             this.operationlogArr = JSON.parse(str)
             this.operationlogArr.forEach(item => item.time = this.dealDate(item.time))
         }
-    },
-    
+    }
 }
 </script>
 

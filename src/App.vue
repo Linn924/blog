@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'app',
+  name: 'App',
   provide () {                              
       return {
         reload: this.reload                                              

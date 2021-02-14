@@ -1,6 +1,5 @@
 import App from './App.vue'
 import router from './router'
-import store from './store'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import './assets/css/global.css'
@@ -52,6 +51,5 @@ Vue.filter('date', function (originVal) {
 
 new Vue({
   router,
-  store,
   render: h => h(App)
 }).$mount('#app')

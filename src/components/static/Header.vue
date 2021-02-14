@@ -1,12 +1,10 @@
 <template>
     <header>
         <section>
-            <!-- 头像 -->
             <a href="javascript:void(0);">
                 <img src="../../assets/image/cat.jpg" alt="">
                 <span>LinnCooper</span>
             </a>
-            <!-- 导航 -->
             <nav>
                 <li>
                     <router-link to="/home"
@@ -16,18 +14,15 @@
                     </router-link>
                 </li>
             </nav>
-            <!-- 未登录提示语 -->
-            <div class="not-logon" v-show="!status">
+            <div class="not-login" v-show="!status">
                 <span>未登录，</span>
                 <router-link to="/login">登录</router-link>
             </div>
-            <!-- 登录提示语 -->
-            <div class="logon" v-show="status">
+            <div class="login" v-show="status">
                 <span>欢迎您，</span>
                 <span @mouseenter="personBoxShow = true" @mouseleave="personBoxShow = false">
                     {{username}}
                 </span>
-                <!-- 个人中心盒子 -->
                 <div class="person-box" @mouseenter="personBoxShow = true" 
                     @mouseleave="personBoxShow = false" v-show="personBoxShow">
                     <div class="person-center">
@@ -38,7 +33,6 @@
                     </div>
                 </div>
             </div>
-
             <el-dropdown placement="bottom-start" trigger="click">
                 <span class="el-dropdown-link">
                     <i class="fa fa-bars"></i>
@@ -54,7 +48,6 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </section>
-        
     </header>
 </template>
 
@@ -149,13 +142,13 @@ header{
                 
             }
         }
-        .not-logon{
+        .not-login{
             display: flex;
             justify-content: center;
             align-items: center;
             a{color: #2468F2!important;}
         }
-        .logon{
+        .login{
             display: flex;
             justify-content: flex-end;
             align-items: center;
@@ -166,7 +159,7 @@ header{
         }
     }
 }
-.logon{
+.login{
     position: relative;
     .person-box{
         position: absolute;
@@ -225,8 +218,8 @@ header{
 }
 @media screen and (max-width:560px){
     header>section nav,
-    .not-logon,
-    .logon,
+    .not-login,
+    .login,
     header>section>a span{
         display: none!important;
     }

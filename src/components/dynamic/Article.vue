@@ -15,7 +15,7 @@
 
 <script>
 import showdown from 'showdown'
-import Comment from './function/Comment'
+import Comment from '../static/Comment'
 export default {
     name:'Article',
     components:{
@@ -69,13 +69,12 @@ export default {
             })
             this.commentList = res.data
         }
-        
     }
 }
 </script>
 
 <style lang="less" scoped>
-@import "../assets/css/md.css";
+@import "../../assets/css/md.css";
 #article{
     max-width: 100%;
     min-width: 100%;
