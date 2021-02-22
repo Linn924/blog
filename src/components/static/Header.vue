@@ -41,7 +41,7 @@
                     <el-dropdown-item>
                         <router-link to="/home" 
                             @click.native="isSearch?getBlogAgain():''">
-                            <i class="el-icon-s-home" style="color:#000"></i>
+                            <i class="fa fa-home" style="color:#000"></i>
                             <span style="color:#000">首页</span>
                         </router-link>
                     </el-dropdown-item>

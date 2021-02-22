@@ -305,7 +305,7 @@ export default {
             .line{border: 1px solid #2468F2;margin: 10px 0;}
         }
         .sort{
-            min-height: 160px;
+            min-height: 120px;
             margin-top: 10px;
             background-color: rgba(255, 255, 255, 0.4);
             border-radius: 3px;
@@ -348,6 +348,9 @@ export default {
                 line-height: 30px;
                 border-bottom: 1px solid #ccc;
                 font-size: 14px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 &:last-child{border: 0;}
                 label{
                     cursor: pointer;
@@ -399,7 +402,7 @@ export default {
   }
   #home>main aside:last-child article{
     position: sticky;
-    top: 360px;
+    top: 324px;
   }
 }
 </style>

@@ -27,8 +27,7 @@
             <p>{{item.introduce}}</p>
         </article>
         <footer v-show="isPaging">
-            <el-pagination 
-                background 
+            <el-pagination  
                 @current-change="handleCurrentChange"
                 :current-page="queryList.pagenum" 
                 :page-sizes="[3, 5, 8]" 
@@ -181,27 +180,36 @@ export default {
         border-radius: 3px;
         box-shadow: 0 2px 10px 0 rgba(0,0,0,0.12);
         margin-bottom: 10px;
-        padding: 20px 20px;
+        padding: 15px 20px;
         box-sizing: border-box;
-        color: #000;
+        color: #282A2D;
         >span{
+            display: block;
+            color: #000;
             font-size: 28px;
             font-weight: 400;
             cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             &:hover{color: #2468F2;}
         }
         div{
             margin: 20px 0;
             i{
-                margin-right: 10px;
-                span{margin-left: 5px;}
-                &:nth-child(2),&:nth-child(3){
-                    span{
-                        cursor: pointer;
-                        &:hover{color: #2468F2;}
-                    }
+                margin-right: 20px;
+                &:first-child span{margin-left: 3px;}
+                &:nth-child(2) span,&:nth-child(3) span{
+                    cursor: pointer;
+                    margin-left: -2px;
+                    &:hover{color: #2468F2;}
                 }
             }
+        }
+        p{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
     footer{
